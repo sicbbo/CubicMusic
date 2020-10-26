@@ -6,6 +6,13 @@ public class CenterFlame : MonoBehaviour
 {
     private bool musicStart = false;
 
+    public string bgmName = string.Empty;
+
+    public void ResetMusic()
+    {
+        musicStart = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (musicStart)
@@ -13,7 +20,7 @@ public class CenterFlame : MonoBehaviour
 
         if (collision.CompareTag(CollectionTag.NoteTag))
         {
-            AudioManager.instance.PlayBGM(BGMName.BGM0);
+            AudioManager.instance.PlayBGM(bgmName);
             musicStart = true;
         }
     }

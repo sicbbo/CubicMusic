@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField] private GameObject stage = null;
+    [SerializeField] private GameObject[] stageArray = null;
+    private GameObject currentStage = null;
     private Transform[] stagePlates = null;
 
     [SerializeField] private float offsetY = 3f;
@@ -13,9 +14,18 @@ public class StageManager : MonoBehaviour
     private int stepCount = 0;
     private int totalPlateCount = 0;
 
-    private void Start()
+    public void RemoveStage()
     {
-        stagePlates = stage.GetComponent<Stage>().plates;
+        if (currentStage != null)
+            Destroy(currentStage);
+    }
+
+    public void SettingStage(int p_SongNum)
+    {
+        stepCount = 0;
+
+        currentStage = Instantiate(stageArray[p_SongNum], Vector3.zero, Quaternion.identity);
+        stagePlates = currentStage.GetComponent<Stage>().plates;
         totalPlateCount = stagePlates.Length;
 
         for (int i = 0; i < totalPlateCount; i++)

@@ -12,19 +12,26 @@ public class Result : MonoBehaviour
     [SerializeField] private Text txtScore = null;
     [SerializeField] private Text txtMaxCombo = null;
 
+    private int currentSong = 0;
+    public int SetCurrentSong { set { currentSong = value; } }
+
     private ScoreManager scoreManager = null;
     private ComboManager comboManager = null;
     private TimingManager timingManager = null;
+    private DataBaseManager dataBaseManager = null;
 
     private void Start()
     {
-        scoreManager = FindObjectOfType<ScoreManager>();
-        comboManager = FindObjectOfType<ComboManager>();
-        timingManager = FindObjectOfType<TimingManager>();
+        if (scoreManager == null) scoreManager = FindObjectOfType<ScoreManager>();
+        if (comboManager == null) comboManager = FindObjectOfType<ComboManager>();
+        if (timingManager == null) timingManager = FindObjectOfType<TimingManager>();
+        if (dataBaseManager == null) dataBaseManager = FindObjectOfType<DataBaseManager>();
     }
 
     public void ShowResult()
     {
+        FindObjectOfType<CenterFlame>().ResetMusic();
+
         AudioManager.instance.StopBGM();
 
         goUI.SetActive(true);
@@ -51,6 +58,12 @@ public class Result : MonoBehaviour
         txtScore.text = string.Format("{0:#,##0}", currentScore);
         txtMaxCombo.text = string.Format("{0:#,##0}", maxCombo);
         txtCoin.text = string.Format("{0:#,##0}", coin);
+
+        if (currentScore > dataBaseManager.score[this.currentSong])
+        {
+            dataBaseManager.score[this.currentSong] = currentScore;
+            dataBaseManager.SaveScore();
+        }
     }
 
     public void BtnMainMenu()

@@ -120,4 +120,12 @@ public class TimingManager : MonoBehaviour
         judgementRecord[(int)Judgement.Miss]++; // 미스 판정 기록
         statusManager.ResetShieldCombo();
     }
+
+    public void Initialized()
+    {
+        for (int i = 0; i < judgementRecord.Length; i++)
+        {
+            judgementRecord[i] = 0;
+        }
+    }
 }

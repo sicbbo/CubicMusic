@@ -27,6 +27,12 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = "0";
     }
 
+    public void Initialized()
+    {
+        currentScore = 0;
+        scoreText.text = "0";
+    }
+
     public void IncreaseScore(Judgement p_JudgementState)
     {
         // 콤보 증가

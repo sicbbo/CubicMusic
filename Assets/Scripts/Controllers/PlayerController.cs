@@ -46,6 +46,18 @@ public class PlayerController : MonoBehaviour
         originPos = myTrans.position;
     }
 
+    public void Initialized()
+    {
+        transform.position = Vector3.zero;
+        destPos = Vector3.zero;
+        realCube.localPosition = Vector3.zero;
+        canMove = true;
+        s_CanPressKey = true;
+        isFalling = false;
+        myRigid.useGravity = false;
+        myRigid.isKinematic = true;
+    }
+
     private void Update()
     {
         if (!GameManager.instance.isStartGame)
